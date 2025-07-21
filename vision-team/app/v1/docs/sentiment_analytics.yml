@@ -1,0 +1,45 @@
+tags:
+  - Analytics
+summary: Get aggregated sentiment data
+description: Returns aggregate daily sentiment counts between two dates.
+parameters:
+  - name: X-API-Key
+    in: header
+    required: true
+    type: string
+  - name: start_date
+    in: query
+    required: true
+    type: string
+    format: date
+    example: "2024-01-01"
+  - name: end_date
+    in: query
+    required: true
+    type: string
+    format: date
+    example: "2024-01-31"
+responses:
+  200:
+    description: Analytics data retrieved
+    schema:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              positive:
+                type: integer
+              neutral:
+                type: integer
+              negative:
+                type: integer
+  400:
+    description: Invalid query parameters
+  401:
+    description: Unauthorized

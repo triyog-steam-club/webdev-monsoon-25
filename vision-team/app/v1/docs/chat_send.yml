@@ -1,0 +1,41 @@
+tags:
+  - Chat
+summary: Send a message to the chatbot
+description: Accepts a user message, gets a reply and sentiment.
+parameters:
+  - name: X-API-Key
+    in: header
+    required: true
+    type: string
+    description: API Key for authorization
+  - in: body
+    name: body
+    required: true
+    schema:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: user_123
+        message:
+          type: string
+          example: "Hello, how are you?"
+      required:
+        - user_id
+        - message
+responses:
+  201:
+    description: Message processed successfully
+    schema:
+      type: object
+      properties:
+        reply:
+          type: string
+          example: "I'm good, thank you!"
+        sentiment:
+          type: string
+          enum: [positive, neutral, negative]
+  400:
+    description: Invalid input
+  401:
+    description: Unauthorized
