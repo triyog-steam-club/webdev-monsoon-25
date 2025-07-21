@@ -1,7 +1,6 @@
 > Author: [Sitanshu Shrestha](https://github.com/itssitanshu)  
 > Developed for STEAM Club's Web-Development Competition. Team: Aaditya Poudel, Kritistha Kathiwada, Vision Sapkota      
 >   
-> [EXAMPLE OF IMPLEMENTATION in HTML/CSS/JS ](example.html) `(click)`
 
 ## Features
 
@@ -135,6 +134,48 @@ X-API-Key: my-super-secret-frontend-key
 {
   "reply": "I'm good, thanks!",
   "sentiment": "Positive"
+}
+```
+
+
+## Example
+```js
+try {
+    const response = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': API_KEY
+        },
+        body: JSON.stringify({
+            user_id: USER_ID,
+            message: messageText,
+        })
+    });
+
+    if (typingElement && typingElement.parentNode) {
+        chatLog.removeChild(typingElement);
+    }
+
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    addMessage(data.reply, 'bot', data.sentiment);
+
+} catch (error) {
+    if (typingElement && typingElement.parentNode) {
+        chatLog.removeChild(typingElement);
+    }
+    
+    console.error("Failed to send message:", error);
+    
+    // Add error message to history and display
+    addMessage("Sorry, I couldn't connect to the server. Please try again later.", 'bot', 'negative');
+} finally {
+    setFormDisabled(false);
 }
 ```
 
