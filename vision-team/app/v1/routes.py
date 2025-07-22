@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from . import bp
-from .services import get_ai_filtered_recipes, generate_video_from_prompt
+from .services import get_ai_filtered_recipes
 from .schemas import validate_recipe_request
 
 @bp.route('/generate-recipes', methods=['POST'])
@@ -119,74 +119,4 @@ def generate_recipes_route():
     ingredients = data.get("ingredients")
 
     result, status_code = get_ai_filtered_recipes(user_profile, ingredients)
-    return jsonify(result), status_code
-
-@bp.route('/generate-video', methods=['POST'])
-def generate_video_route():
-    """
-    Generate a Video from a Text Prompt
-    This endpoint creates a short video based on a descriptive text prompt using a generative AI model.
-    **Warning:** This is a long-running, synchronous operation. The request may take several minutes to complete.
-    ---
-    tags:
-      - Video Generation
-    requestBody:
-      description: The text prompt to generate the video from.
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              prompt:
-                type: string
-                description: A descriptive prompt for the video content.
-                example: "A majestic lion basking in the golden morning sun on the Serengeti plains."
-            required:
-              - prompt
-    responses:
-      200:
-        description: Video was generated and saved successfully.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: "Video generated successfully."
-                filename:
-                  type: string
-                  example: "a1b2c3d4-e5f6-7890-1234-567890abcdef.mp4"
-      400:
-        description: Bad Request. The request body is missing or the prompt is invalid.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                error:
-                  type: string
-                  example: "Request must be JSON."
-      500:
-        description: Internal Server Error. An error occurred during the video generation or saving process.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                error:
-                  type: string
-                  example: "Failed to start video generation process: [Error Details]"
-    """
-    data = request.get_json()
-    if not data:
-        return jsonify({"error": "Request must be JSON"}), 400
-
-    prompt = data.get("prompt")
-    if not prompt or not isinstance(prompt, str):
-        return jsonify({"error": "A non-empty 'prompt' string is required."}), 400
-        
-    result, status_code = generate_video_from_prompt(prompt)
-
     return jsonify(result), status_code
