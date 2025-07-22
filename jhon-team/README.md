@@ -1,5 +1,5 @@
 > Author: [Sitanshu Shrestha](https://github.com/itssitanshu)  
-> Developed for STEAM Club's Web-Development Competition. Team: Kushal Kumar Bhujel, Bishwasta Marasini, Subhadaya Bhatta 	    
+> Developed for STEAM Club's Web-Development Competition. Team: Shivansu Shrestha, Aarush Bhandari, John Khadka   
 >   
 
 # Jhon Team API
