@@ -1,13 +1,16 @@
-from marshmallow import Schema, fields, validate
+def validate_recipe_request(data):
+    errors = []
+    required_fields = ["age", "gender", "weight", "height", "disease", "ingredients"]
 
-class ChatSendSchema(Schema):
-    user_id = fields.Str(required=True, description="The unique identifier for the user.")
-    message = fields.Str(required=True, validate=validate.Length(min=1, max=2000))
+    for field in required_fields:
+        if field not in data:
+            errors.append(f"Missing required field: '{field}'")
+    
+    if "ingredients" in data and not isinstance(data["ingredients"], list):
+        errors.append("'ingredients' must be a list of strings.")
 
-class ChatHistoryQuerySchema(Schema):
-    limit = fields.Int(load_default=10, validate=validate.Range(min=1, max=100))
-    user_id = fields.Str(required=True)
-
-class AnalyticsQuerySchema(Schema):
-    start_date = fields.Date(format='iso', required=True)
-    end_date = fields.Date(format='iso', required=True)
+    if "ingredients" in data and isinstance(data["ingredients"], list) and not data["ingredients"]:
+        errors.append("'ingredients' list cannot be empty.")
+        
+    
+    return errors
