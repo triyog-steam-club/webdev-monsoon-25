@@ -1,5 +1,5 @@
 > Author: [Sitanshu Shrestha](https://github.com/itssitanshu)  
-> Developed for STEAM Club's Web-Development Competition. Team: Aaditya Poudel, Kritistha Kathiwada, Vision Sapkota      
+> Developed for STEAM Club's Web-Development Competition. Team: Kushal Kumar Bhujel, Bishwasta Marasini, Subhadaya Bhatta 	    
 >   
 
 ## Features
@@ -23,7 +23,7 @@
 ## Project Structure
 
 ```
-vision-team/
+subhadaya-team/
 ├──app
   ├── config.py
   ├── __init__.py
